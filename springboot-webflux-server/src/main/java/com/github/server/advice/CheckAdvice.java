@@ -30,7 +30,6 @@ public class CheckAdvice {
         return e.getFieldErrors().stream()
             .map(one -> one.getField() + ":" + one.getDefaultMessage())
             .reduce("", (a, b) -> a + "\n" + b);
-
     }
 
 }

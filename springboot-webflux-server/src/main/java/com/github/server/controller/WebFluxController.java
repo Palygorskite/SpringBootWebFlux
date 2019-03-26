@@ -1,6 +1,8 @@
 package com.github.server.controller;
 
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
@@ -49,7 +51,7 @@ public class WebFluxController {
     }
 
 
-    @GetMapping(value = "3", produces = "text/event-stream")
+    @GetMapping(value = "3", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<String> flux() {
         return Flux.fromStream(IntStream.range(1, 5).mapToObj(i -> {
                 try {
@@ -63,12 +65,9 @@ public class WebFluxController {
     }
 
 
+    @SneakyThrows(InterruptedException.class)
     private String createString() {
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        TimeUnit.SECONDS.sleep(5);
         return "Some String";
     }
 
